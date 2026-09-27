@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Irrigation Records</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <h2>CropAnalysier</h2>
+            <nav>
+                <a th:href="@{/dashboard}">Dashboard</a>
+                <a th:href="@{/farmers}">Farmers</a>
+                <a th:href="@{/crops}">Crops</a>
+                <a th:href="@{/irrigation}" class="active">Irrigation Records</a>
+                <a th:href="@{/irrigation/dashboard}">Irrigation Status</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <div class="header-row">
+                <h1>Irrigation Records</h1>
+                <a th:href="@{/irrigation/add}" class="primary-link">Add Irrigation</a>
+            </div>
+
+            <div class="table-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Crop</th>
+                                <th>Soil Moisture</th>
+                                <th>Water Quantity</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="irrigation : ${irrigations}">
+                                <td th:text="${irrigation.crop.cropName}"></td>
+                                <td th:text="${irrigation.soilMoisture} + '%' "></td>
+                                <td th:text="${irrigation.waterQuantity} + ' L'"></td>
+                                <td th:text="${irrigation.irrigationType}"></td>
+                                <td th:text="${irrigation.status}"></td>
+                                <td th:text="${#temporals.format(irrigation.irrigationTime, 'yyyy-MM-dd HH:mm')}"></td>
+                                <td class="action-links">
+                                    <a th:href="@{/irrigation/edit/{id}(id=${irrigation.id})}">Edit</a>
+                                    <a th:href="@{/irrigation/delete/{id}(id=${irrigation.id})}" class="danger">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

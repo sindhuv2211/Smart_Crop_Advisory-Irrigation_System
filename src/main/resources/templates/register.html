@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Farmer</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+    <div class="auth-card wide">
+        <h1>Register Farmer</h1>
+        <p class="subtitle">Create your account</p>
+
+        <form th:action="@{/register}" th:object="${farmer}" method="post">
+            <div class="grid-two">
+                <div>
+                    <label>Name</label>
+                    <input type="text" th:field="*{name}" required>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email" th:field="*{email}" required>
+                </div>
+                <div>
+                    <label>Phone Number</label>
+                    <input type="text" th:field="*{phoneNumber}" required>
+                </div>
+                <div>
+                    <label>Farm Location</label>
+                    <input type="text" th:field="*{farmLocation}" required>
+                </div>
+            </div>
+
+            <label>Address</label>
+            <textarea th:field="*{address}" rows="3" required></textarea>
+
+            <label>Password</label>
+            <input type="password" th:field="*{password}" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="helper-text">
+            Already have an account? <a th:href="@{/login}">Login here</a>
+        </p>
+    </div>
+</body>
+</html>

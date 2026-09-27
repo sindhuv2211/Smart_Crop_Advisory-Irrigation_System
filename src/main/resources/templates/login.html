@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CropAnalysier Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+    <div class="auth-card">
+        <h1>CropAnalysier</h1>
+        <p class="subtitle">Farmer Irrigation Management System</p>
+
+        <div th:if="${param.error}" class="alert error">
+            Invalid email or password.
+        </div>
+        <div th:if="${param.logout}" class="alert success">
+            You have been logged out.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="helper-text">
+            New farmer? <a th:href="@{/register}">Create an account</a>
+        </p>
+    </div>
+</body>
+</html>

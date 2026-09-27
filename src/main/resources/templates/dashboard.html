@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <h2>CropAnalysier</h2>
+            <nav>
+                <a th:href="@{/dashboard}" class="active">Dashboard</a>
+                <a th:href="@{/farmers}">Farmers</a>
+                <a th:href="@{/crops}">Crops</a>
+                <a th:href="@{/irrigation}">Irrigation Records</a>
+                <a th:href="@{/irrigation/dashboard}">Irrigation Status</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="page-header">
+                <h1>Dashboard</h1>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <span>Total Farmers</span>
+                    <strong th:text="${totalFarmers}">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Total Crops</span>
+                    <strong th:text="${totalCrops}">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Irrigation Records</span>
+                    <strong th:text="${totalIrrigationRecords}">0</strong>
+                </div>
+                <div class="stat-card accent">
+                    <span>Latest Status</span>
+                    <strong th:text="${latestStatus}">N/A</strong>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>Latest Irrigation Reading</h3>
+                <div th:if="${latestIrrigation != null}">
+                    <p><strong>Soil Moisture:</strong> <span th:text="${latestSoilMoisture}">0</span>%</p>
+                    <p><strong>Crop:</strong> <span th:text="${latestIrrigation.crop.cropName}">-</span></p>
+                    <p><strong>Water Quantity:</strong> <span th:text="${latestIrrigation.waterQuantity}">0</span> L</p>
+                    <p><strong>Irrigation Type:</strong> <span th:text="${latestIrrigation.irrigationType}">-</span></p>
+                </div>
+                <div th:unless="${latestIrrigation != null}">
+                    <p>No irrigation data recorded yet.</p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>Crop Advisory</h3>
+                <div th:if="${cropAdvisory != null and !#lists.isEmpty(cropAdvisory)}">
+                    <div th:each="advice : ${cropAdvisory}" class="advisory-item">
+                        <h4 th:text="${advice.cropName}">Crop</h4>
+                        <p><strong>Season:</strong> <span th:text="${advice.cropSeason}"></span></p>
+                        <p><strong>Soil Type:</strong> <span th:text="${advice.soilType}"></span></p>
+                        <p><strong>Water Requirement:</strong> <span th:text="${advice.waterRequirement}"></span></p>
+                        <p><strong>Guidance:</strong> <span th:text="${advice.irrigationGuidance}"></span></p>
+                        <p><strong>Advice:</strong> <span th:text="${advice.generalAdvice}"></span></p>
+                    </div>
+                </div>
+                <div th:unless="${cropAdvisory != null and !#lists.isEmpty(cropAdvisory)}">
+                    <p>No crop advisory data available.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

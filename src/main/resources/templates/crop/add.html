@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Crop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+    <div class="auth-card wide">
+        <h1>Add Crop</h1>
+        <form th:action="@{/crops/add}" th:object="${crop}" method="post">
+            <div class="grid-two">
+                <div>
+                    <label>Crop Name</label>
+                    <input type="text" th:field="*{cropName}" required>
+                </div>
+                <div>
+                    <label>Crop Type</label>
+                    <input type="text" th:field="*{cropType}" required>
+                </div>
+                <div>
+                    <label>Season</label>
+                    <input type="text" th:field="*{cropSeason}" required>
+                </div>
+                <div>
+                    <label>Soil Type</label>
+                    <input type="text" th:field="*{soilType}" required>
+                </div>
+            </div>
+            <label>Water Requirement</label>
+            <input type="text" th:field="*{waterRequirement}" required>
+            <div class="action-links">
+                <button type="submit">Save</button>
+                <a th:href="@{/crops}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crops</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <h2>CropAnalysier</h2>
+            <nav>
+                <a th:href="@{/dashboard}">Dashboard</a>
+                <a th:href="@{/farmers}">Farmers</a>
+                <a th:href="@{/crops}" class="active">Crops</a>
+                <a th:href="@{/irrigation}">Irrigation Records</a>
+                <a th:href="@{/irrigation/dashboard}">Irrigation Status</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <div class="header-row">
+                <h1>Crops</h1>
+                <a th:href="@{/crops/add}" class="primary-link">Add Crop</a>
+            </div>
+
+            <div class="table-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Season</th>
+                                <th>Soil Type</th>
+                                <th>Water Requirement</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="crop : ${crops}">
+                                <td th:text="${crop.cropName}"></td>
+                                <td th:text="${crop.cropType}"></td>
+                                <td th:text="${crop.cropSeason}"></td>
+                                <td th:text="${crop.soilType}"></td>
+                                <td th:text="${crop.waterRequirement}"></td>
+                                <td class="action-links">
+                                    <a th:href="@{/crops/edit/{id}(id=${crop.id})}">Edit</a>
+                                    <a th:href="@{/crops/delete/{id}(id=${crop.id})}" class="danger">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

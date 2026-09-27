@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Irrigation Record</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+    <div class="auth-card wide">
+        <h1>Edit Irrigation Record</h1>
+        <form th:action="@{/irrigation/edit/{id}(id=${irrigation.id})}" th:object="${irrigation}" method="post">
+            <div class="grid-two">
+                <div>
+                    <label>Crop</label>
+                    <select th:field="*{crop}" required>
+                        <option th:each="crop : ${crops}" th:value="${crop.id}" th:text="${crop.cropName}"></option>
+                    </select>
+                </div>
+                <div>
+                    <label>Soil Moisture (%)</label>
+                    <input type="number" step="0.01" th:field="*{soilMoisture}" required>
+                </div>
+                <div>
+                    <label>Water Quantity (L)</label>
+                    <input type="number" step="0.01" th:field="*{waterQuantity}" required>
+                </div>
+                <div>
+                    <label>Irrigation Type</label>
+                    <input type="text" th:field="*{irrigationType}" required>
+                </div>
+            </div>
+
+            <label>Irrigation Time</label>
+            <input type="datetime-local" th:field="*{irrigationTime}" required>
+
+            <div class="action-links">
+                <button type="submit">Update</button>
+                <a th:href="@{/irrigation}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

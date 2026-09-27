@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Farmers</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <h2>CropAnalysier</h2>
+            <nav>
+                <a th:href="@{/dashboard}">Dashboard</a>
+                <a th:href="@{/farmers}" class="active">Farmers</a>
+                <a th:href="@{/crops}">Crops</a>
+                <a th:href="@{/irrigation}">Irrigation Records</a>
+                <a th:href="@{/irrigation/dashboard}">Irrigation Status</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <div class="header-row">
+                <h1>Farmers</h1>
+                <a th:href="@{/farmers/add}" class="primary-link">Add Farmer</a>
+            </div>
+
+            <div class="table-card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Farm Location</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="farmer : ${farmers}">
+                                <td th:text="${farmer.name}"></td>
+                                <td th:text="${farmer.email}"></td>
+                                <td th:text="${farmer.phoneNumber}"></td>
+                                <td th:text="${farmer.farmLocation}"></td>
+                                <td class="action-links">
+                                    <a th:href="@{/farmers/edit/{id}(id=${farmer.id})}">Edit</a>
+                                    <a th:href="@{/farmers/delete/{id}(id=${farmer.id})}" class="danger">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
